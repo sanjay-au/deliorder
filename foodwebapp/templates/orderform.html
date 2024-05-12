@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center p-5">
+    <div class="d-grid place-items-center form border border-primary">
+        <div class="mb-3">
+            {% include 'messages.html' %}
+            <h1 class="text-primary text-center fw-bold">Order Form</h1>
+        </div>
+        <form method="POST" class="poppins-regular">
+            {% csrf_token %}
+            <div class="d-flex justify-content-center align-items-center mb-3">
+            <div class="form-check mx-auto">
+                <input class="form-check-input" type="radio" name="payment" value="Cash On Delivery" id="offline" checked>
+                <label class="form-check-label" for="offline">
+                    Cash On Delivery
+                </label>
+            </div>
+            <div class="form-check mx-auto">
+                <input class="form-check-input" type="radio" name="payment" value="Paid" id="online" disabled>
+                <label class="form-check-label d-grid" for="online">
+                    Online Payment<sub class="text-danger">not available for now</sub>
+                </label>
+            </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address:</label>
+                <textarea class="form-control" name="address"></textarea>
+            </div>
+            <div class="mb-3 d-flex align-items-center">
+                <input type="submit" class="form-control btn btn-outline-dark-purple" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

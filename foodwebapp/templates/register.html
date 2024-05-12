@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center p-5">
+    <div class="d-grid place-items-center form border border-primary">
+        {% include 'messages.html' %}
+        <div class="mb-3">
+            <h1 class="text-primary text-center fw-bold">Sign Up</h1>
+        </div>
+        <form method="POST" class="poppins-regular" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">First Name:</label>
+                <input type="text" class="form-control" name="f_name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Last Name:</label>
+                <input type="text" class="form-control" name="l_name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Username:</label>
+                <input type="text" class="form-control" name="username">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password:</label>
+                <input type="password" class="form-control" name="password">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Confirm Password:</label>
+                <input type="password" class="form-control" name="cpassword">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" class="form-control" name="email">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone:</label>
+                <input type="text" class="form-control" name="phone">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Profile Photo:</label>
+                <input type="file" class="form-control" name="profile">
+            </div>
+            <div class="mb-3 d-flex align-items-center">
+                <input type="submit" class="form-control btn btn-outline-dark-purple" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

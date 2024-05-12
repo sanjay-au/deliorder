@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% include 'messages.html' %}
+    {% if cart %}
+    <h1 class="text-center fw-bold text-primary p-3">Your Cart</h1>
+    <div class="col-8 poppins-regular border border-primary p-2" style="border-radius:10px;">
+      <h4 class="text-center text-primary">Cart Items</h4>
+      {% for i in cart %}
+      <div class="d-flex my-3 mx-1 border border-primary" style="border-radius:10px;">
+        <a href="{% url 'food:detail' i.food_item.id %}" class="btn d-flex align-items-center">
+          <div style="height:15rem;width:15rem">
+            <img src="{{i.food_item.image.url}}" width="100%">
+          </div>
+          <div class="d-grid p-3 border-end border-primary" style="width:25rem">
+            <h2 class="text-success">{{i.food_item.name}}</h2>
+            <div class="d-flex">
+              <p class="me-3">Price: {{i.food_item.price}}/-</p>
+              <p class="">Quantity: {{i.quantity}}</p>
+              <div class="d-grid">
+                {% if i.food_item.stock == 0 %}
+                <a href="{% url 'cart:remove' i.food_item.id %}" class="btn"><i class="fa-solid fa-minus" style="color: #0d69fd;"></i></a>
+                {% else %}
+                <a href="{% url 'cart:plus' i.food_item.id %}" class="btn m1"><i class="fa-solid fa-plus" style="color: #0d69fd;"></i></a>
+                <a href="{% url 'cart:remove' i.food_item.id %}" class="btn"><i class="fa-solid fa-minus" style="color: #0d69fd;"></i></a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="d-grid">
+              <p>Date Added: <span class="text-warning fw-bold">{{i.date_added}}</span></p>
+            </div>
+          </div>
+        </a>
+        <div class="d-grid justify-content-center align-items-center" style="width:12rem">
+          <h4 class="text-danger text-center">Sub Total: <span class="fw-bold">{{i.subtotal}}</span></h4>
+          <a href="{% url 'cart:delete' i.food_item.id %}" class="btn btn-outline-dark-purple mx-3">Remove <i class="fa-solid fa-trash" style="color: #0d69fd;"></i></a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-4 p-2 poppins-regular">
+      <div class="d-grid place-item-center border border-danger p-2" style="border-radius:10px;">
+        <h4 class="text-center text-primary m-2">Checkout Details</h4>
+        <h3 class="text-danger text-center m-5">Total: <span class="fw-bold">{{total}}</span></h3>
+        <div class="d-flex justify-content-center align-items-center mb-3">
+          <a href="{% url 'food:home' %}" class="btn btn-outline-dark-purple me-1">Continue</a>
+          <a href="{% url 'cart:orderform' %}" class="btn btn-outline-dark-purple">Proceed to Checkout</a>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <h1 class="text-center fw-bold text-primary p-3">Your Cart is Empty</h1>
+    <div class="d-flex justify-content-center align-items-center mb-3">
+      <a href="{% url 'food:home' %}" class="btn btn-outline-dark-purple me-1">Continue Shopping</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

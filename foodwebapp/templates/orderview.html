@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    {% include 'messages.html' %}
+    {% if order %}
+    {% for i in order %}
+  <div class="row my-2 poppins-regular">
+      <div class="col-3">
+          <img src="{{i.food_item.image.url}}" width="100%">
+      </div>
+      <div class="col-8">
+          <table>
+              <tr>
+                  <td>Name: {{i.user.first_name}} {{i.user.last_name}}</td>
+              </tr>
+              <tr>
+                  <td>Item: {{i.food_item.name}}</td>
+              </tr>
+              <tr>
+                  <td>Address: {{i.address}}</td>
+              </tr>
+              <tr>
+                  <td>Subtotal: {{i.subtotal}}</td>
+              </tr>
+              {% if i.order_status == 'Pending' %}
+              <tr>
+                  <td>Order Status: <span class="text-danger">{{i.order_status}}</span></td>
+              </tr>
+              {% elif i.order_status == 'Delivered' %}
+              <tr>
+                  <td>Order Status: <span class="text-primary">{{i.order_status}}</span></td>
+              </tr>
+              {% else %}
+              <tr>
+                  <td>Order Status: <span class="text-success">{{i.order_status}}</span></td>
+              </tr>
+              {% endif %}
+              {% if i.payment_status == 'Paid' %}
+              <tr>
+                  <td>Payment Status: <span class="text-success">{{i.payment_status}}</span></td>
+              </tr>
+              {% else %}
+              <tr>
+                  <td>Payment Status: <span class="text-primary">{{i.payment_status}}</span></td>
+              </tr>
+              {% endif %}
+              <tr>
+                  <td>Order Date: {{i.order_date}}</td>
+              </tr>
+          </table>
+      </div>
+  </div>
+    {% endfor %}
+    {% else %}
+    <h1 class="m-5 text-center text-danger">Your Order List Is Empty</h1>
+    <p class="m-5 text-center text-danger">Try Ordering</p>
+    <div class="d-flex justify-content-center align-items-center">
+        <a href="{% url 'food:home' %}" class="btn btn-outline-dark-purple">Continue</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

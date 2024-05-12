@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container my-5">
+    <div class="row d-flex justify-content-center align-items-center">
+        {% if menu != None %}
+        <h1 class="text-success text-center">Search Results for <span class="text-danger">{{search}}</span></h1>
+        {% for i in menu %}
+        <div class="col-4 my-5">
+            <a href="{% url 'food:detail' i.id %}" class="btn">
+                <div class="card" style="width:18rem;height:18rem;">
+                    <img src="{{i.image.url}}" class="card-img-top" width="100%">
+                    <div class="card-body">
+                        <p class="card-title">{{i.name}}</p>
+                        <p class="card-title">{{i.mealType}}</p>
+                        <p class="card-title">{{i.cuisine}}</p>
+                        <p class="card-text">{{i.price}}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h1 class="text-center fw-bold text-danger">No Results Found for {{search}}</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

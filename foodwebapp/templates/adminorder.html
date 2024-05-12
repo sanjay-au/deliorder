@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container py-3">
+    {% if order %}
+    {% include 'messages.html' %}
+    <h1 class="text-primary text-center">Order Details</h1>
+    {% for i in order %}
+    <a href="{% url 'cart:adminview' i.id %}" class="btn poppins-regular">
+    <div class="row d-flex justify-content-center my-4">
+        <div class="col-9 p-2">
+            <table class="p-2 border border-primary" width="100%">
+                <tr>
+                    <td rowspan="5"><img src="{{i.food_item.image.url}}" width="100%"></td>
+                    <td width="750px;">{{i.user.first_name}} {{i.user.last_name}}</td>
+                </tr>
+                <tr>
+                    <td>{{i.food_item.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{i.quantity}}</td>
+                </tr>
+                <tr>
+                    <td>{{i.address}}</td>
+                </tr>
+                <tr>
+                    <td>{{i.payment_status}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-3 p-2">
+                {% if i.order_status == 'Pending' %}
+                <div class="d-flex justify-content-center align-items-center border border-primary" style="width:100%;height:100%">
+                    <h1 class="text-danger">{{i.order_status}}</h1>
+                </div>
+                {% elif i.order_status == 'Order Picked' %}
+                <div class="d-flex justify-content-center align-items-center border border-primary" style="width:100%;height:100%">
+                    <h1 class="text-primary">{{i.order_status}}</h1>
+                </div>
+                {% elif i.order_status == 'Out For Delivery' %}
+                <div class="d-flex justify-content-center align-items-center border border-primary" style="width:100%;height:100%">
+                    <h1 class="text-success">{{i.order_status}}</h1>
+                </div>
+                {% else %}
+                <div class="d-flex justify-content-center align-items-center bg-success border border-primary" style="width:100%;height:100%">
+                    <h1 class="text-light">{{i.order_status}}</h1>
+                </div>
+                {% endif %}
+        </div>
+    </div>
+    </a>
+    {% endfor %}
+    {% else %}
+    <h1 class="text-center text-danger">Nothing to Deliver</h1>
+    {% endif %}
+</div>
+{% endblock %}
+{% block script %}
+
+    setInterval(function() {
+        window.location.reload();
+    },10000);
+
+{% endblock %}
